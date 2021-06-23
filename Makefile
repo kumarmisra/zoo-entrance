@@ -7,7 +7,7 @@
 # the registry where the image will be pushed (default is Docker Hub).
 DOCKERFILE_DIR     ?= ./
 DOCKER_REGISTRY    ?= docker.io
-DOCKER_ORG         ?= $(USER)
+DOCKER_ORG         ?= kmisra
 DOCKER_IMAGE       ?= zoo-entrance
 DOCKER_TAG         ?= latest
 
@@ -15,12 +15,12 @@ all: docker_build docker_push
 
 docker_build:
 	# Build Docker image ...
-	docker build -t $(DOCKER_ORG)/$(DOCKER_IMAGE):$(DOCKER_TAG) $(DOCKERFILE_DIR)
+	sudo docker build -t $(DOCKER_ORG)/$(DOCKER_IMAGE):$(DOCKER_TAG) $(DOCKERFILE_DIR)
 
 docker_tag:
 	# Tag the $(BUILD_TAG) image we built with the given $(DOCKER_TAG) tag
-	docker tag $(DOCKER_ORG)/$(DOCKER_IMAGE):$(DOCKER_TAG) $(DOCKER_REGISTRY)/$(DOCKER_ORG)/$(DOCKER_IMAGE):$(DOCKER_TAG)
+	sudo docker tag $(DOCKER_ORG)/$(DOCKER_IMAGE):$(DOCKER_TAG) $(DOCKER_REGISTRY)/$(DOCKER_ORG)/$(DOCKER_IMAGE):$(DOCKER_TAG)
 
 docker_push: docker_tag
 	# Push the $(DOCKER_TAG)-tagged image to the registry
-	docker push $(DOCKER_REGISTRY)/$(DOCKER_ORG)/$(DOCKER_IMAGE):$(DOCKER_TAG)
+	sudo docker push $(DOCKER_REGISTRY)/$(DOCKER_ORG)/$(DOCKER_IMAGE):$(DOCKER_TAG)
